@@ -1,40 +1,46 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react'
 
-/**
- * Wraps children in the scroll-triggered "reveal-up" fade/slide animation
- * used throughout the design. Pass `delay` (seconds) to stagger groups.
- */
-export default function Reveal({ children, delay = 0, className = '', as: Tag = 'div' }) {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
+export default function Reveal({ as: Tag = 'div', delay, className = '', style, children, ...rest }) {
+  const ref = useRef(null)
+  const [inView, setInView] = useState(false)
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    const el = ref.current
+    if (!el) return
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setInView(true);
-            observer.unobserve(entry.target);
+            setInView(true)
+            observer.unobserve(entry.target)
           }
-        });
+        })
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
-    );
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' },
+    )
+    observer.observe(el)
 
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+    const timeout = setTimeout(() => {
+      if (el.getBoundingClientRect().top < window.innerHeight) setInView(true)
+    }, 100)
+
+    return () => {
+      observer.disconnect()
+      clearTimeout(timeout)
+    }
+  }, [])
+
+  const mergedStyle = delay !== undefined ? { transitionDelay: delay, ...style } : style
 
   return (
     <Tag
       ref={ref}
-      className={`reveal-up ${inView ? 'is-inview' : ''} ${className}`}
-      style={delay ? { transitionDelay: `${delay}s` } : undefined}
+      className={`${className} reveal-up${inView ? ' is-inview' : ''}`}
+      style={mergedStyle}
+      {...rest}
     >
       {children}
     </Tag>
-  );
+  )
 }

@@ -1,19 +1,11 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
 
 body {
   background-color: #f5f5f5;
   color: #0a0a0a;
   cursor: none;
   overflow-x: hidden;
-  font-family: 'Inter', sans-serif;
 }
 
 ::selection {
@@ -21,16 +13,10 @@ body {
   color: #f5f5f5;
 }
 
-a,
-button,
-input,
-textarea,
-select,
-[data-cursor] {
+a, button, input, textarea, select, [data-cursor] {
   cursor: none !important;
 }
 
-/* Custom cursor */
 #custom-cursor {
   position: fixed;
   top: 0;
@@ -42,10 +28,9 @@ select,
   pointer-events: none;
   z-index: 10000;
   transform: translate(-50%, -50%);
-  transition:
-    width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 0.4s ease;
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.4s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -78,24 +63,6 @@ select,
   opacity: 1;
 }
 
-/* On touch devices there is no real cursor to replace, so restore native
-   cursor behavior and hide the custom cursor dot entirely. */
-@media (hover: none), (pointer: coarse) {
-  body,
-  a,
-  button,
-  input,
-  textarea,
-  select,
-  [data-cursor] {
-    cursor: auto !important;
-  }
-
-  #custom-cursor {
-    display: none;
-  }
-}
-
 .magnetic-wrap {
   position: relative;
   display: inline-block;
@@ -124,9 +91,7 @@ select,
 .reveal-up {
   opacity: 0;
   transform: translateY(40px);
-  transition:
-    opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal-up.is-inview {
   opacity: 1;
@@ -147,7 +112,7 @@ select,
   left: -10%;
   width: 70%;
   height: 70%;
-  background: radial-gradient(circle, rgba(217, 119, 6, 0.6) 0%, rgba(217, 119, 6, 0) 70%);
+  background: radial-gradient(circle, rgba(217,119,6,0.6) 0%, rgba(217,119,6,0) 70%);
   border-radius: 50%;
   filter: blur(80px);
   opacity: 0.8;
@@ -160,7 +125,7 @@ select,
   right: -10%;
   width: 60%;
   height: 60%;
-  background: radial-gradient(circle, rgba(180, 83, 9, 0.5) 0%, rgba(180, 83, 9, 0) 70%);
+  background: radial-gradient(circle, rgba(180,83,9,0.5) 0%, rgba(180,83,9,0) 70%);
   border-radius: 50%;
   filter: blur(90px);
   opacity: 0.7;
@@ -178,3 +143,5 @@ select,
   opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
+
+@tailwind utilities;
